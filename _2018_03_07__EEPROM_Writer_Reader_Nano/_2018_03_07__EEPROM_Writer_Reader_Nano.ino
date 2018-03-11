@@ -14,13 +14,13 @@ String myLetter="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
   
 
 void setup() {
-  pinMode(SR_DATA,OUTPUT);                  //SR_DATA pin 14 on 54HC595
-  pinMode(SR_LATCH,OUTPUT);                 //SR_LATCH pin 12 on 54HC595
-  pinMode(SR_CLK,OUTPUT);                   //SR_CLK pin 11 on 54HC595
-  pinMode(EEPROM_OE,OUTPUT);                //OE pin 20 on EEPROM 
-  pinMode(EEPROM_WE,OUTPUT);                //WE pin 21 on EEPROM
-  digitalWrite(EEPROM_OE,HIGH);             //Turn off the EEPROM Output
-  digitalWrite(EEPROM_WE,HIGH);             //Turn off Write Enable on EEPROM
+  pinMode(SR_DATA, OUTPUT);                 //SR_DATA pin 14 on 54HC595
+  pinMode(SR_LATCH, OUTPUT);                //SR_LATCH pin 12 on 54HC595
+  pinMode(SR_CLK, OUTPUT);                  //SR_CLK pin 11 on 54HC595
+  pinMode(EEPROM_OE, OUTPUT);               //OE pin 20 on EEPROM 
+  pinMode(EEPROM_WE, OUTPUT);               //WE pin 21 on EEPROM
+  digitalWrite(EEPROM_OE, HIGH);            //Turn off the EEPROM Output
+  digitalWrite(EEPROM_WE, HIGH);            //Turn off Write Enable on EEPROM
   for(byte i=EEPROM_D0;i <= EEPROM_D7;i++){ //Set pins D2-D9 for OUTPUT
     pinMode(i, OUTPUT);
   }
@@ -44,14 +44,14 @@ void setDataPinMode(boolean Mode){ //Set pins D2-D9 for either 0-INPUT or 1-OUTP
   }
   else if(Mode==1){
     for(byte i=EEPROM_D0;i<=EEPROM_D7;i++){
-      pinMode(i,OUTPUT);
+      pinMode(i, OUTPUT);
     }
   }
 }
 
 void setValue(byte Value){  //Set value on pins D2-D9
   for(byte i=EEPROM_D0;i<=EEPROM_D7;i++){
-    digitalWrite(i,Value & 1);
+    digitalWrite(i, Value & 1);
     Value=Value >>1;
   }
 }
@@ -98,18 +98,18 @@ void flashLEDs(byte Pattern){
 }
 
 void writeValueToAddress(unsigned int Address, byte Value){
-  digitalWrite(EEPROM_OE,HIGH);     //Turn off the EEPROM Output
+  digitalWrite(EEPROM_OE, HIGH);    //Turn off the EEPROM Output
   setAddress(Address);              //Set the address by putting Address on SR
   setValue(Value);                  //Set the value on the data pins
   delay(10);                        //Wait 10ms
   digitalWrite(EEPROM_WE, LOW);     //Turn on write enable on EEPROM
   delayMicroseconds(1);             //Wait 1us
-  digitalWrite(EEPROM_WE,HIGH);     //Turn off write enable on EEPROM
+  digitalWrite(EEPROM_WE, HIGH);    //Turn off write enable on EEPROM
   delay(10);
 }
 
 byte readAddress(int Address){
-  digitalWrite(EEPROM_OE,LOW);    //Turn on the EEPROM Output
+  digitalWrite(EEPROM_OE, LOW);   //Turn on the EEPROM Output
   byte value=0;
   for(byte i=EEPROM_D7;i>=EEPROM_D0;i--){
     value+=digitalRead(i);        //Read the value on the pin
@@ -122,7 +122,7 @@ void fillEEPROM(byte Value){
   setDataPinMode(1);                 //Set the data pins for write/output
   unsigned int i;
   for(i=0;i<=2047;i++){
-    writeValueToAddress(i,Value);
+    writeValueToAddress(i, Value);
   }
 }
 
@@ -130,7 +130,7 @@ void fillFirstEEPROM(byte Value, unsigned int Count){
   setDataPinMode(1);               //Set the data pins for write/output
   unsigned int i;
   for(i=0;i<=Count;i++){
-    writeValueToAddress(i,Value);
+    writeValueToAddress(i, Value);
   }
 }
 
@@ -142,14 +142,14 @@ void writeLetterToEEPROM(){
   }
   else{
     for(unsigned int i=0;i <= (myLetter.length())-1;i++){
-      writeValueToAddress(i,myLetter[i]);
+      writeValueToAddress(i, myLetter[i]);
     }
   }
 }
 
 void readWholeEEPROM(){
-  setDataPinMode(0);                 //Set the data pins for read/input
-  digitalWrite(EEPROM_OE,LOW);    //Turn on the EEPROM Output
+  setDataPinMode(0);                //Set the data pins for read/input
+  digitalWrite(EEPROM_OE, LOW);     //Turn on the EEPROM Output
   for(unsigned int j=0;j<=2047;j++){
     setAddress(j);
     byte value=readAddress(j);
@@ -173,7 +173,7 @@ void loop() {
       flashLEDs(1);       //Flash LEDs in start/stop pattern
       Serial.println("Zeroing EEPROM...");
       //fillEEPROM(0);
-      fillFirstEEPROM(0,64);
+      fillFirstEEPROM(0, 64);
       Serial.println("Writing letters..");
       writeLetterToEEPROM();
       flashLEDs(1);       //Flash LEDs in start/stop pattern
