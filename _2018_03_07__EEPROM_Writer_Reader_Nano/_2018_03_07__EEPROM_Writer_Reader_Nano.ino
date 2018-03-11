@@ -37,11 +37,13 @@ void setAddress(unsigned int Address){
 }
 
 void setDataPinMode(boolean Mode){ //Set pins D2-D9 for either 0-INPUT or 1-OUTPUT
-  for(byte i=EEPROM_D0;i<=EEPROM_D7;i++){
-    if(Mode==0){
+  if(Mode==0){
+    for(byte i=EEPROM_D0;i<=EEPROM_D7;i++){
       pinMode(i, INPUT);
     }
-    else{
+  }
+  else if(Mode==1){
+    for(byte i=EEPROM_D0;i<=EEPROM_D7;i++){
       pinMode(i,OUTPUT);
     }
   }
@@ -168,14 +170,14 @@ void loop() {
       Serial.println("End read...");
     }
     else{
-      //flashLEDs(1);       //Flash LEDs in start/stop pattern
-      //Serial.println("Zeroing EEPROM...");
+      flashLEDs(1);       //Flash LEDs in start/stop pattern
+      Serial.println("Zeroing EEPROM...");
       //fillEEPROM(0);
-      //fillFirstEEPROM(0,64);
-      //Serial.println("Writing letters..");
-      //writeLetterToEEPROM();
-      //flashLEDs(1);       //Flash LEDs in start/stop pattern
-      //Serial.println("End write...");
+      fillFirstEEPROM(0,64);
+      Serial.println("Writing letters..");
+      writeLetterToEEPROM();
+      flashLEDs(1);       //Flash LEDs in start/stop pattern
+      Serial.println("End write...");
       run=false;
       read=true;
       }
