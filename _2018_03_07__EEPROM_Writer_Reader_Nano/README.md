@@ -2,6 +2,10 @@
 
 ## Description: This sketch is to program an 28C16A 16K EEPROM using 2 54HC595 8bit shift registers and an Arduino Nano.
 
+## Basics of Approach
+
+Nano pins A0-A2 drives shift registers to set target address of EEPROM. Only 11 outputs on the 2 8bit shift registers are used, leaving 5 shift register outputs unused. Nano pins D2-D9 writes to or reads from (depending on current mode) EEPROM IO pins.
+
 ## Component List
 * 1 x Arduino Nano
 * 2 x 54HC595 (referenced as 54HC595-1 and 54HC595-2)
@@ -70,7 +74,7 @@
 |12           |Nano     |A1                  |N/A                      |
 |12           |54HC595-1|11                  |Latch                    |
 |13           |GND      |N/A                 |N/A                      |
-|14           |54HC595-1|9                   |Shift Out/Overflow       |
+|14           |54HC595-1|9                   |Shift Out/Overflow/Qh'   |
 |15           |28C16A   |23                  |A8                       |
 |16           |+5V      |N/A                 |N/A                      |
 
