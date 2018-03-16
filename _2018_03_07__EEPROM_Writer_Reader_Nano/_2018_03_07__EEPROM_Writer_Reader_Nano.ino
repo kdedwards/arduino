@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 #define BUTTON 13
 #define SR_DATA A0
 #define SR_LATCH A1
@@ -134,6 +136,14 @@ void fillFirstEEPROM(byte Value, unsigned int Count){
   }
 }
 
+void fillEEPROMIncremental(){
+  setDataPinMode(1);
+  unsigned int i;
+  for(i=0;i<=2047;i++){
+    writeValueToAddress(i, i);
+  }
+}
+
 void writeLetterToEEPROM(){
   setDataPinMode(1);               //Set the data pins for write/output
   if(myLetter.length() > 2047){ //If data is larger than EEPROM, throw error
@@ -148,13 +158,15 @@ void writeLetterToEEPROM(){
 }
 
 void readWholeEEPROM(){
+  char buffer[2];
   setDataPinMode(0);                //Set the data pins for read/input
   digitalWrite(EEPROM_OE, LOW);     //Turn on the EEPROM Output
   for(unsigned int j=0;j<=2047;j++){
     setAddress(j);
     byte value=readAddress(j);
     //Serial.print((char)value);
-    Serial.print(value, HEX);
+    sprintf(buffer, "%02X", value);
+    Serial.print(buffer);
     Serial.print(" ");
     if((j+1) % 16 == 0){Serial.println();}  //Newline after 16 values printed
   }
@@ -171,11 +183,12 @@ void loop() {
     }
     else{
       flashLEDs(1);       //Flash LEDs in start/stop pattern
-      Serial.println("Zeroing EEPROM...");
+      //Serial.println("Zeroing EEPROM...");
       //fillEEPROM(0);
-      fillFirstEEPROM(0, 64);
+      //fillFirstEEPROM(0, 64);
       Serial.println("Writing letters..");
-      writeLetterToEEPROM();
+      fillEEPROMIncremental();
+      //writeLetterToEEPROM();
       flashLEDs(1);       //Flash LEDs in start/stop pattern
       Serial.println("End write...");
       run=false;
