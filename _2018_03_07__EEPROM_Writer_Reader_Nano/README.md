@@ -105,4 +105,3 @@ Nano pins A0-A2 drives shift registers to set target address of EEPROM. Only 11 
 |22        |54HC595-2|1                   |Qb                       |
 |23        |54HC595-2|15                  |Qa                       |
 |24        |+5V      |N/A                 |N/A                      |
-
