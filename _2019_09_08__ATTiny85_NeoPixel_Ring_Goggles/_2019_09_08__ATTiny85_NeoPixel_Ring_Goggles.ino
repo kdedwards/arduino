@@ -28,9 +28,9 @@ uint32_t stripColors[32]={red,red,red,red,blue,red,red,red,red,red,red,red,blue,
                           
 //uint32_t ring3[32]={green,pink,blue,red,green,pink,blue,red,green,pink,blue,red,green,pink,blue,red};
 //uint32_t ring4[32]={pink,blue,red,green,pink,blue,red,green,pink,blue,red,green,pink,blue,red,green};
-//uint32_t ringBlack[32]={black,black,black,black,black,black,black,black,black,black,black,black,black,black,black,black,
+//const uint32_t ringBlack[32]={black,black,black,black,black,black,black,black,black,black,black,black,black,black,black,black,
 //                        black,black,black,black,black,black,black,black,black,black,black,black,black,black,black,black};
-//uint32_t ringWhite[32]={white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,
+//const uint32_t ringWhite[32]={white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,
 //                        white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white};
 
 
@@ -60,13 +60,6 @@ void loop() {
   gearOut(16,25);
 }
 
-//void testPattern(){
-//  for(int i=0;i<32;i++){
-//    stripColors[i]=ring1[i];
-//  }
-//  updateStrip();
-//}
-
 void updatePixel(uint32_t c, byte numPixel){
       stripColors[numPixel]=c;
       updateStrip();
@@ -81,7 +74,6 @@ void updateStrip(){
 }
 
 void spin(byte numPositions, byte ringSelect, bool dir, int wait){
-
   if(dir == 0){
     for(byte i=0;i<numPositions;i++){
         if(ringSelect==1 || ringSelect==3){
@@ -103,7 +95,6 @@ void spin(byte numPositions, byte ringSelect, bool dir, int wait){
       if(wait != 0){delay(wait);}
     }
   }
-
   if(dir == 1){
     for(byte i=0;i<numPositions;i++){
       if(ringSelect==1 || ringSelect==3){
@@ -113,7 +104,6 @@ void spin(byte numPositions, byte ringSelect, bool dir, int wait){
         }
         stripColors[0]=tempColor;
       }
-  
       if(ringSelect==2 || ringSelect==3){
         uint32_t tempColor=stripColors[31];
         for(byte j=31; j>16;j--){
@@ -134,13 +124,11 @@ void gearIn(byte numPositions, int wait){
         stripColors[j]=stripColors[(j+1)];
       }
       stripColors[15]=tempColor;
-      
       tempColor=stripColors[31];
       for(byte j=31; j>16;j--){
         stripColors[j]=stripColors[(j-1)];
       }
       stripColors[16]=tempColor;
-      
       updateStrip();
       if(wait != 0){delay(wait);}
     }   
@@ -159,7 +147,6 @@ void gearOut(byte numPositions, int wait){
         stripColors[j]=stripColors[(j+1)];
       }
       stripColors[31]=tempColor;
-      
       updateStrip();
       if(wait != 0){delay(wait);}
     }   
