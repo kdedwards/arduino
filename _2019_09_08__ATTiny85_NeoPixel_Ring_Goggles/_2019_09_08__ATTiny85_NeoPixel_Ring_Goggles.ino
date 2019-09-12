@@ -28,9 +28,9 @@ uint32_t stripColors[32]={red,red,red,red,blue,red,red,red,red,red,red,red,blue,
                           
 //uint32_t ring3[32]={green,pink,blue,red,green,pink,blue,red,green,pink,blue,red,green,pink,blue,red};
 //uint32_t ring4[32]={pink,blue,red,green,pink,blue,red,green,pink,blue,red,green,pink,blue,red,green};
-//const uint32_t ringBlack[32]={black,black,black,black,black,black,black,black,black,black,black,black,black,black,black,black,
+//uint32_t ringBlack[32]={black,black,black,black,black,black,black,black,black,black,black,black,black,black,black,black,
 //                        black,black,black,black,black,black,black,black,black,black,black,black,black,black,black,black};
-//const uint32_t ringWhite[32]={white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,
+//uint32_t ringWhite[32]={white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,
 //                        white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white};
 
 
